@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Caption Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    /* Full-screen video background */
+    .video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Centered content */
+    .content {
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      padding-bottom: 50px;
+    }
+
+    .heading {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-top: 40px; /* Moves the description lower */
+      margin-bottom: 50px;
+      line-height:1.5;
+      
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 15px auto;
+    }
+
+    .btn-signup {
+      background-color: #440156;
+      color: white;
+    }
+
+    .btn-signup:hover {
+      background-color: #340562;
+    }
+
+    .btn-login {
+      background-color: #4d0563;
+      color: white;
+    }
+
+    .btn-login:hover {
+      background-color: #17046e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <div class="video-container">
+    <video autoplay muted loop>
+      <source src="../static/visnarr.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Centered Content -->
+  <div class="content">
+    <!--<h1 class="heading">Image Caption Generator using Deep Learning</h1>-->
+    <p class="description">
+      Upload an image, and our deep learning model will generate a descriptive caption for you. 
+      Try it out and discover the power of AI in visual understanding.
+    </p>
+
+    <!-- Signup Button -->
+    <button class="btn btn-signup" id="signup-btn">Signup</button>
+
+    <!-- Login Button -->
+    <button class="btn btn-login" id="login-btn">Login</button>
+  </div>
+
+  <script>
+    // Redirect to Signup page
+    document.getElementById('signup-btn').addEventListener('click', function() {
+      window.location.href = '/signup';
+    });
+
+    // Redirect to Login page
+    document.getElementById('login-btn').addEventListener('click', function() {
+      window.location.href = '/login';
+    });
+  </script>
+
+</body>
+</html>

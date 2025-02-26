@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+upload
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        background-color: rgb(122, 171, 246);
+        color: rgb(3, 3, 3); /* Ensures text is visible on black background */
+    }
+    #up{
+        padding-top: 40px;
+        padding-left: 260px;
+        padding-right: 260px;
+        padding-bottom: 20px;
+    }
+
+    #cap{
+        padding: 20px;
+    }
+    /* DEMO-SPECIFIC STYLES */
+    .typewriter h1 {
+        color:rgb(11, 11, 11);
+        text-align: center;
+        font-family: monospace;
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation: 
+        typing 3.5s steps(30, end),
+        blink-caret .5s step-end infinite;
+    }
+
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: white }
+    }
+
+    @media screen and (min-width: 1100px) {
+        .typewriter h1 {
+            font-size: 20px;
+        }
+    }
+
+    @media screen and (max-width: 1100px) {
+        .typewriter h1 {
+            font-size: 10px;
+        }
+    }
+
+    @keyframes zoom-in{
+        from {width: 0;height: 0;}
+        to {width: 100%;height: auto;}
+    }
+    #img{
+        padding: 30px;
+        animation: zoom-in 3s;
+    }
+    #info{
+        padding-top: 30px;
+        padding-right: 350px;
+        padding-left: 350px;
+        padding-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<center>
+    <div id="info">
+        <p>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Captioning
+            </a>
+            <a class="btn btn-danger" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                Dataset
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Image Captioning is the process of generating textual description of an image. It uses both Natural Language Processing and Computer Vision to generate the captions.
+                The dataset will be in the form [image → captions]. The dataset consists of input images and their corresponding output captions.
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample2">
+            <div class="card card-body">
+                The Dataset for training my Model is Flickr 8K<br>
+                A collection of 8 thousand described images taken from flickr.com.<br>
+                <a href="https://www.kaggle.com/adityajn105/flickr8k"><button type="button" class="btn btn-info">Download Dataset</button></a>
+            </div>
+        </div>
+    </div>
+    <div id="up">
+        <form method="POST" enctype="multipart/form-data" action="{{url_for('upload')}}">
+            <input type="file" class="form-control" name="photo" id="fup">
+            <br>
+            <button type="submit" class="btn btn-success" id="fsb">Submit</button>
+        </form>
+    </div>
+</center>
+
+<center>
+    <div id="cap">
+        {% if cp %}
+            <div class="typewriter">
+                <h1>{{cp}}</h1>
+            </div>
+            <div id="img">
+                <img src={{src}} width="35%">
+            </div>
+        {% endif %}
+    </div>
+</center>
+{% endblock %}

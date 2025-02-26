@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visual Narrator:Image Caption Generator</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --gradient-blue: linear-gradient(135deg, #34a2eb, #2980b9);
+            --gradient-purple: linear-gradient(135deg, #6D9DC5, #2F3B69);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: black;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            max-height: 93%;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .upload-container {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .upload-container:hover {
+            border-color: #34a2eb;
+            background: rgba(52, 162, 235, 0.1);
+        }
+
+        .preview-image {
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container">
+            <a class="navbar-brand nav-brand" href="#">THE VISUAL NARRATOR</a>
+            <div class="d-flex">
+                <button class="btn btn-danger" id="generate-caption-btn" onclick="window.location.href='/logout'">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 py-5">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Left Column -->
+                <div class="col-lg-6">
+                    <div class="glass-container p-4 p-md-5 mb-4">
+                        <h1 class="display-5 fw-bold mb-4">
+                            Transform Images into Captions with AI
+                        </h1>
+                        
+                        <p>How to use the AI image caption generator?</p>
+                        <ul>
+                            <li><strong>Upload any image:</strong> Choose an image from your device or drag and drop it into the upload area.</li>
+                        
+                            <li><strong>We analyze it with AI:</strong> Our advanced AI model processes the image to understand its content.</li>
+                            <li><strong>We generate a caption:</strong> The AI converts the analysis into a descriptive and meaningful caption.</li>
+                        </ul>
+                        <br>
+
+                        <button 
+                            class="btn" 
+                            style="background-color: #34a2eb; color: antiquewhite; border: none; transition: background-color 0.3s ease;" 
+                            id="generate-caption-btn"
+                            onclick="window.location.href='/upload'"
+                        >
+                            <i class="fas fa-magic"></i> Generate Caption
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-lg-6">
+                    <div class="glass-container p-4 p-md-5 h-100">
+                        <h2 class="h4 fw-bold mb-4">How It Works</h2>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="feature-card p-4">
+                                    <i class="fas fa-brain fa-2x text-primary mb-3"></i>
+                                    <h3 class="h5">Deep Learning Model</h3>
+                                    <p class="small mb-0">VGG + LSTM architecture trained on 8k images</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-card p-4">
+                                    <i class="fas fa-clock fa-2x text-primary mb-3"></i>
+                                    <h3 class="h5">Real-time Processing</h3>
+                                    <p class="small mb-0">Get results in seconds using GPU acceleration</p>
+                                </div>
+                            </div>
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Image Preview Handler
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const [file] = e.target.files;
+            if (file) {
+                const preview = document.getElementById('imagePreview');
+                preview.style.display = 'block';
+                preview.src = URL.createObjectURL(file);
+            }
+        });
+
+        // Form Submission Handler
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            document.getElementById('buttonText').style.display = 'none';
+            document.querySelector('.loading-spinner').style.display = 'block';
+        });
+
+        // Logout Handler
+        document.getElementById('login-btn').addEventListener('click', () => {
+            window.location.href = "/logout";
+        });
+    </script>
+</body>
+</html>
