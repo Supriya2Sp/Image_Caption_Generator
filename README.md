@@ -1,0 +1,1 @@
+This project is an Image Caption Generator that uses a deep learning model to generate captions for images. The model is trained on filckr_8k dataset of images and corresponding captions to learn the relationship between visual features and textual descriptions.
